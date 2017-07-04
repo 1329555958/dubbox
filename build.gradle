@@ -1,0 +1,46 @@
+group 'com.vfinance'
+version '1.0-SNAPSHOT'
+
+
+apply from: "$rootDir/dependencies.gradle"
+
+
+allprojects {
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven {
+            url = 'http://nexus.vfinance.cn:9081/content/groups/public/'
+        }
+    }
+
+//    <dependency>
+//    <groupId>com.alibaba</groupId>
+//            <artifactId>dubbo</artifactId>
+//    <version>2.8.4</version>
+//            <exclusions>
+//                <exclusion>
+//                    <artifactId>spring</artifactId>
+//    <groupId>org.springframework</groupId>
+//                </exclusion>
+//    </exclusions>
+//        </dependency>
+    dependencies {
+        compile("com.alibaba:dubbo:2.8.4") {
+            exclude group: "org.springframework", module: "spring"
+        }
+        compile("com.alibaba:dubbo-common:2.8.4")
+        compile "org.apache.zookeeper:zookeeper:3.3.3"
+        compile "com.101tec:zkclient:0.10"
+        compile "com.fasterxml.jackson.core:jackson-core:2.3.3"
+        compile "com.fasterxml.jackson.core:jackson-databind:2.3.3"
+        compile libs.common
+        testCompile libs.test
+    }
+    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+}
+

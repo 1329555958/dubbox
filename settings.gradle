@@ -1,0 +1,5 @@
+rootProject.name = 'vfdubbox'
+include 'provider'
+include 'consumer'
+include 'api'
+
